@@ -259,20 +259,39 @@ FROM emp;
 
 
 
+SELECT empno, ename,
+       DECODE(deptno, '10', 'ACCOUNTING',
+                      '20', 'RESEARCH',
+                      '30', 'SALES',
+                      '40', 'OPERATIONS',
+                                   'DDIT') DNAME
+                    
+FROM emp;
 
 
+SELECT EMPNO, ENAME,
+        CASE
+            WHEN deptno = 10 THEN 'ACCOUNTING'
+            WHEN deptno = 20 THEN 'RESEARCH'
+            WHEN deptno = 30 THEN 'SALES'
+            WHEN deptno = 40 THEN 'OPERATIONS'
+            ELSE 'DDIT'
+            END dname
+FROM emp;
 
 
+SELECT empno, ename, hiredate,
+           CASE WHEN MOD(TO_NUMBER(TO_CHAR(hiredate, 'yy')), 2) = 1 THEN '건강검진 대상자'
+           ELSE '건강검진 비대상자'
+           END CONTACT_TO_DOCTOR
+FROM emp;
 
 
-
-
-
-
-
-
-
-
-
+SELECT empno, ename,
+       DECODE(deptno, '10', 'ACCOUNTING',
+                      '20', 'RESEARCH',
+                      '30', 'SALES',
+                      '40', 'OPERATIONS',
+                                   'DDIT') DNAME
 
 
