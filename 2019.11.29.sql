@@ -56,7 +56,8 @@ WHERE cycle.pid = product.pid
 GROUP BY cycle.pid;
 
 --½Ç½À8
-
+SELECT *
+FROM countries;
 
 
 
