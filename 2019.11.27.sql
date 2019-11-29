@@ -162,4 +162,18 @@ FROM emp;
 SELECT ename, emp.deptno, dept.dname
 FROM emp, dept
 WHERE emp.deptno = dept.deptno;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             
