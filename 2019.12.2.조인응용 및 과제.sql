@@ -132,7 +132,8 @@ SELECT NVL(p.pid, 300) pid, p.pnm, NVL(c.cid,1) cid, NVL(cnm,'brown') cnm, NVL(c
 FROM cycle c, product p, customer
 WHERE c.pid(+) = p.pid
 AND customer.cid(+) = c.cid
-AND c.cid(+) = '1';
+AND c.cid(+) = '1'
+ORDER BY pid;
 
 
 

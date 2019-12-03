@@ -2,15 +2,12 @@
 SELECT *
 FROM customer, product;
 
-
 SELECT *
 FROM customer;
 
 SELECT *
 FROM fastfood
 WHERE sido = '대전광역시';
-
-
 
 --도시발전지수가 높은 순으로 나열
 --도시발정지수 = (버거킹개수 + kfc 개수 + 맥도날드 개수) / 롯데리아 개수
@@ -26,7 +23,7 @@ FROM
 
 (SELECT sido, sigungu, count(*) cnt --버거킹, kfc, 맥도날드 건수
 FROM fastfood
-WHERE gb IN ('kfc', '버거킹', '맥도날드') 
+WHERE gb IN ('버거킹', 'KFC', '맥도날드') 
 GROUP BY sido, sigungu) a,
 
 (SELECT sido, sigungu, count(*) cnt --롯데리아 건수
@@ -37,6 +34,8 @@ GROUP BY sido, sigungu) b
 WHERE a.sido = b.sido
 AND a.sigungu = b.sigungu
 ORDER BY 도시발전지수 DESC);
+
+
 
 
 SELECT *
