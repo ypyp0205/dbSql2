@@ -2,7 +2,7 @@
 
 
 
-SELECT bg.rn, bg.sido, bg.sigungu, bg.도시발전지수, tx.people, tx.sal
+SELECT bg.rn, bg.sido, bg.sigungu,  ROUND(tx.sal / tx.people, 2)
 
 
 FROM
@@ -27,14 +27,16 @@ WHERE a.sido = b.sido
 AND a.sigungu = b.sigungu
 ORDER BY 도시발전지수 DESC)) bg,
 
-(SELECT *
+(SELECT  *
 FROM tax
 ORDER BY sal DESC) tx
 
 WHERE bg.sido(+) = tx.sido
-AND bg.sigungu(+) = tx.sigungu
+AND bg.sigungu(+) = tx.sigungu;
+
 ORDER BY rn;
 
 SELECT *
 FROM tax
+
 ORDER BY sal DESC;
