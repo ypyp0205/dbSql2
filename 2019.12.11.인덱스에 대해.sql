@@ -56,7 +56,7 @@ Predicate Information (identified by operation id):
 --기존 인덱스 제거
 --pk_emp 제약조건 삭제 --> unique  제약삭제 --> pk_emp 인덱스 삭제
 
---IDEWX 종류 (컬럼중복 여부)
+--INDEX 종류 (컬럼중복 여부)
 --UNIQUE INDEX : 인덱스 컬럼의 값이 중복될 수 없는 인덱스
 --               (emp.empno, dept.deptno)
 --NON-UNIQUE INDEX : 인덱스 컬럼의 값이 중복 될 수 있는 인덱스 
@@ -204,9 +204,33 @@ Predicate Information (identified by operation id):
    4 - access("EMP"."EMPNO"=7788)
    5 - access("EMP"."DEPTNO"="DEPT"."DEPTNO")
    
-   
-   
-   
-   
+--실습1
+CREATE TABLE dept_test AS 
+SELECT *
+FROM dept 
+WHERE 1 = 1;
+    
+    
+CREATE UNIQUE INDEX idx_u_dept_test_01 ON dept_test (deptno);      
+
+--dname 컬럼으로 NON-UNIQUE INDEX
+CREATE INDEX idx_n_dept_test_02 ON dept_test (dname);      
+
+--deptno, dname 컬럼으로 NON-UNIQUE INDEX
+CREATE INDEX idx_n_dept_test_03 ON dept_test (deptno, dname);      
+
+
+--idx2
+DROP INDEX idx_u_dept_test_01;
+DROP INDEX idx_n_dept_test_02;
+DROP INDEX idx_n_dept_test_03;
+
+
+
+
+--CREATE UNIQUE INDEX idx_n_emp_01 ON emp (empno);
+
+--위쪽 상황이랑 달라진 것은 empno컬럼으로 생성된 인덱스가
+--UNIQUE -> NON-UNIQUE 인덱스로 변경됨   
    
    
