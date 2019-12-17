@@ -234,3 +234,14 @@ DROP INDEX idx_n_dept_test_03;
 --UNIQUE -> NON-UNIQUE ¿Œµ¶Ω∫∑Œ ∫Ø∞Êµ    
    
    
+   
+   
+--INDEX Ω«Ω¿ idx4   
+   
+CREATE UNIQUE INDEX idx_u_emp_04 ON emp (empno);        
+   
+CREATE INDEX idx_n_dept_04 ON dept (deptno);     
+  
+CREATE INDEX idx_n_sal_04 ON emp (sal);  
+
+   
