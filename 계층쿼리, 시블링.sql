@@ -125,13 +125,11 @@ ORDER SIBLINGS BY seq DESC;
 
 --실습 9 
 --값이 하나있으면 편한데 없어도 가능
-SELECT seq, LPAD(' ', 4*(LEVEL-1)) || title
+SELECT parent_seq,seq, LPAD(' ', 4*(LEVEL-1)) || title
 FROM board_test
 START WITH parent_seq IS NULL
 CONNECT BY PRIOR seq = parent_seq
-ORDER SIBLINGS BY seq DESC;
-
-
+ORDER SIBLINGS BY NVL(parent_seq, seq) DESC;
 
 
 

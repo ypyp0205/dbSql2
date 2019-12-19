@@ -42,7 +42,7 @@ SELECT
     MAX(DECODE(d, 1, dt)) 일, MAX(DECODE(d, 2, dt)) 월, MAX(DECODE(d, 3, dt)) 화,
     MAX(DECODE(d, 4, dt)) 수, MAX(DECODE(d, 5, dt)) 목, MAX(DECODE(d, 6, dt)) 금, MAX(DECODE(d, 7, dt)) 토
 FROM
-    (SELECT 
+    (SELECT LEVEL, TRUNC((LEVEL-1)/7) m ,
             TO_DATE(:yyyymm, 'YYYYMM') - 
             (TO_CHAR(TO_DATE(:yyyymm, 'YYYYMM'), 'D') -1) + (LEVEL - 1) dt,
             
@@ -61,7 +61,7 @@ FROM
                            TO_DATE(:yyyymm, 'YYYYMM') -
                            (TO_CHAR(TO_DATE(:yyyymm, 'YYYYMM'), 'D') -1) fdt
                            FROM dual)))
-    GROUP BY dt - (d - 1)
-    ORDER BY dt - (d - 1);
+    GROUP BY m
+    ORDER BY m;
     
 
