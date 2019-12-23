@@ -87,41 +87,17 @@ FROM emp;
 
 
 --실습 no_ana3
-SELECT a.empno, a.ename, a.sal, a.sum(sal) c_sum
-FROM
-(SELECT empno, ename, sal, ROWNUM rn
-FROM
-(SELECT empno, ename, sal 
-FROM emp
-ORDER BY sal)) a,
-
-(SELECT empno, ename, sal, ROWNUM rn
-FROM
-(SELECT empno, ename, sal 
-FROM emp
-ORDER BY sal)) b
-
-WHERE a.empno = b.empno
-AND a.ename = b.ename
-AND a.sal = b.sal
-
-GROUP BY empno, ename;
-
---empno,ename,sal 구룹바이
---a.rn >= b.rn;
-
-
-
-
-SELECT empno, ename, sal, ROWNUM rn
-FROM
-(SELECT empno, ename, sal 
-FROM emp
-ORDER BY sal);
-
-
-
-
+select e1.EMPNO,e1.ENAME,e1.SAL,e1.HIREDATE,sum(e2.sal)from(
+          SELECT a.*,rownum rn
+FROM(
+    Select empno,ename,sal,hiredate FROM emp ORDER BY sal,hiredate)a
+        )e1,
+             (select b.*, rownum rn FROM(
+             select empno,ename,sal from emp
+             order by sal,HIREDATE)b)e2
+WHERE e1.rn>=e2.rn
+GROUP BY  e1.EMPNO,e1.ENAME,e1.SAL,e1.HIREDATE
+;
 
 
 
