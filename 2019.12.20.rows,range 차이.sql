@@ -170,11 +170,23 @@ exec registdept_test(99, 'DDIT', 'DAEJEON');
 
 
 
+--½Ç½À pro_3
+CREATE OR REPLACE PROCEDURE UPDATEdept_test
+(p_deptno IN dept_test.deptno%TYPE,
+ p_dname IN dept_test.dname%TYPE,
+ p_loc IN dept_test.loc%TYPE)
+IS
+    
+BEGIN
 
+UPDATE dept_test SET deptno = 99, dname = 'DDIT', loc = 'DAEJEON'  
+            WHERE deptno = p_deptno;
+            COMMIT;
+END;
+/
 
-  ;
-  SELECT *
-  FROM dept_test;
+exec UPDATEdept_test(99, 'DDIT', 'DAEJEON');
+
+SELECT *
+FROM dept_test;
   
-  SELECT *
-  FROM dept;

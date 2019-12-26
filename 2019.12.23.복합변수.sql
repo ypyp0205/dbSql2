@@ -81,3 +81,137 @@ END;
 /
 
 
+--로직 제어 IF
+--IF condition THEN
+--  statement
+--ELSIF condition THEN
+--  statement
+--ELSE
+--  statement
+--END IF;
+
+--PL/SQL IF 실습
+--변수 p(NUMVER)에 2라는 값을 할당하고
+--int a;
+--a = 5;
+--IF 구문을 통해 pdml 값이 1, 2, 그 밖의 값일때 텍스트 출력
+DECLARE
+    p NUMBER := 2;  --변수 선언과 할당을 한문장에서 진행
+BEGIN
+    -- p := 2;
+    IF p = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('p = 1');
+    ELSIF p = 2 THEN   --java와 문법이 다르다  (else if -> ELSIF)
+        DBMS_OUTPUT.PUT_LINE('p = 2');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(p);
+    END IF;
+END;
+/
+
+
+
+
+--FOR LOOP
+--FOR 인덱스변수 IN [REVERSE] START..END LOOP
+--      반복실행문
+--END LOOP;
+--0 ~ 5까지 루프 변수를 이용하여 반복문 실행
+DECLARE
+BEGIN
+    FOR i IN 0..5 LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+    END LOOP;
+END;
+/
+
+--1 ~ 10 : 55
+--1 ~ 10까지의 loop를 이용하여 계산, 결과를 s_val이라는 변수에 담아
+--DBMS_OUTPUT.PUT_LINE 할수를 통해 화면에 출력
+
+DECLARE
+    s_val NUMBER := 0;
+BEGIN
+    FOR i IN 1..10 LOOP
+        s_val := s_val + i;
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE(s_val);
+END;
+/
+
+
+--while loop
+--WHILE condition LOOP
+-- statsment
+--END LOOP;
+--0부터 5까지 WHILE 문을 이용하여 출력
+DECLARE
+    i NUMBER := 0;
+BEGIN
+    WHILE i <= 5 LOOP
+    DBMS_OUTPUT.PUT_LINE(i);
+    i := i + 1;
+    END LOOP;
+    
+END;
+/    
+
+
+--LOOP
+--LOOP
+--  statement;
+--  EXIT [WHEN condition];
+--END LOOP;
+DECLARE
+    i NUMBER := 0;
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+        EXIT WHEN i >= 5;
+        i := i + 1;
+    END LOOP;
+END;
+/    
+
+
+--CURSOR : SQL을 개발자가 제어할 수 있는 객체
+--묵시적 : 개발자가 별도의 커서명을 기술하지 않은 형태, ORACLE에서 자동으로
+--          OPEN, 실행, FETCH, CLOSE를 관리한다.
+--명시적 : 개발자가 이름을 붙인 커서, 개발자가 직접 제어하며
+--          선언, OPEN, FETCH, CLOSE 단계가 존재
+--CURSOR 커서이름 IS -- 커서 선언
+--     QUERY
+--OPEN 커서이름;    --커서 OPEN
+--FETCH 커서이름 INTO 변수1, 변수2...   --커서 FETCH(행 인출)
+--CLOSE 커서이름;   --커서 CLOSE
+
+
+--부서테이블의 모든 행의 부서이름, 위치 지역 정보를 출력(CURSOR를 이용)
+DECLARE
+    CURSOR dept_cursor IS
+        SELECT dname, loc
+        FROM dept;
+    v_dname dept.dname%TYPE;
+    v_loc dept.loc%TYPE;
+BEGIN
+    --커서 오픈 
+    OPEN dept_cursor;  
+    
+    LOOP
+        FETCH dept_cursor INTO v_dname, v_loc;
+        --종료조건 : FETCH할 데이터가 없을 때 종료
+        
+        EXIT WHEN dept_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE(v_dname || ', ' || v_loc);
+   
+    END LOOP;
+    CLOSE dept_cursor;
+    
+    
+END;
+/
+
+
+
+
+
