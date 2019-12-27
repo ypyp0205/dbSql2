@@ -128,13 +128,45 @@ FROM dept_h
 START WITH p_deptcd IS NULL
 CONNECT BY PRIOR deptcd = p_deptcd;
 
+---------------------------------------------------------------------------------------------------
+--users 테이블의 비밀번호 컬럼이 변경이 생겼을 때
+--기존에 사용하던 비밀번호 컬럼 이력을 관리하기 위한 테이블
+CREATE TABLE users_history(
+    userid VARCHAR2(20),
+    pass VARCHAR2(100),
+    mod_dt date
+);    
 
 
+CREATE OR REPLACE TRIGGER make_history
+    --timing
+    BEFORE UPDATE ON USERS
+    FOR EACH ROW   --행트리거, 행의 변경이 있을 때마다 실행한다
+    --현재 데이터 참조 : OLD
+    --갱신 데이터 참조 : NEW
+    BEGIN
+        --users 테이블의 pass 컬럼을 변경할 때 trigger 실행
+        IF :OLD.pass != :NEW.pass THEN
+            INSERT INTO users_history
+                VALUES (:OLD.userid, :OLD.pass, sysdate);
+    END IF;
+    
+    --다른 컬럼에 대해서는 무시한다
+END;    
+/    
 
+--USERS 테이블의 PASS 컬럼을 변경 했을 때
+--trigger에 의해서 users_history 테이블에 이력이 생성되는지 확인
 
+SELECT *
+FROM users_history;
 
+UPDATE USERS set pass = '1234'
+WHERE userid = 'brown';
 
+SELECT *
+FROM USERS_HISTORY;
 
-
-
+--INSERT USERS_HISTORY...
+--UPDATE USERS...
 
